@@ -1,6 +1,7 @@
 package com.example.nr.quickports;
 
 import com.example.nr.quickports.entities.ChargeDevice;
+import com.example.nr.quickports.entities.connector.Connector;
 import com.example.nr.quickports.entities.location.Address;
 import com.example.nr.quickports.entities.location.Location;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
@@ -20,22 +21,21 @@ public class QuickportsApplication {
 	CommandLineRunner commandLineRunner(ChargeDeviceRepository chargeDeviceRepository){
 		return args -> {
 			Address address = new Address("107",
-					"Croydon Road" ,
+					"Croydon Road",
 					"SE20 7TF",
-					"Greater London" ,
+					"Greater London",
 					"gb"
-					);
-
-			Location location = new Location("51.411173" ,"-0.055369", address );
-
-			ChargeDevice chargeDevice = new ChargeDevice(
-					"fa6c94460e902005a0b660266190c8ba",
-					"Ancaster Nissan Dealership",
-					location
-
 			);
 
+			Location location = new Location("51.411173", "-0.055369", address);
+
+			Connector connector = new Connector("3-pin Type G (BS1363)", "3.0", "230",
+					"13", "Single Phase AC");
+
+			ChargeDevice chargeDevice = new ChargeDevice("fa6c94460e902005a0b660266190c8ba", "PP-12295", location, connector);
+
 			chargeDeviceRepository.save(chargeDevice);
+
 
 		};
 	}
