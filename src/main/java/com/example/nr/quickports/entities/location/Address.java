@@ -1,5 +1,7 @@
 package com.example.nr.quickports.entities.location;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,7 @@ public class Address {
             strategy = GenerationType.SEQUENCE,
             generator = "address_sequence"
     )
+    @JsonIgnore
     private Long id;
 
     private String buildingNumber;

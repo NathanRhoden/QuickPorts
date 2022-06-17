@@ -1,6 +1,7 @@
 package com.example.nr.quickports.entities.location;
 
 import com.example.nr.quickports.entities.location.Address;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ public class Location {
             strategy = GenerationType.SEQUENCE,
             generator = "location_sequence"
     )
+    @JsonIgnore
     private Long id;
 
     private String latitude;

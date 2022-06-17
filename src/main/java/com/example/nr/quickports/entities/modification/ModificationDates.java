@@ -1,9 +1,8 @@
 package com.example.nr.quickports.entities.modification;
 
-import com.example.nr.quickports.entities.ChargeDevice;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class ModificationDates {
@@ -20,39 +19,30 @@ public class ModificationDates {
     )
     private Long ModificationId;
 
-    private Date dateCreated;
+    private String dateCreated;
 
-    private Date dateUpdated;
+    private String  dateUpdated;
 
-    @OneToOne(
-            cascade = CascadeType.ALL
-    )
-    private ChargeDevice chargeDevice;
-
-
-    public ModificationDates(Date dateCreated, Date dateUpdated, ChargeDevice chargeDeviceId) {
+    public ModificationDates(String dateCreated, String dateUpdated) {
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
-        this.chargeDevice = chargeDeviceId;
+
     }
 
     public ModificationDates() {
     }
 
+    @JsonIgnore
     public Long getModificationId() {
         return ModificationId;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public Date getDateUpdated() {
+    public String getDateUpdated() {
         return dateUpdated;
-    }
-
-    public ChargeDevice getChargeDevice() {
-        return chargeDevice;
     }
 
     @Override
@@ -61,7 +51,8 @@ public class ModificationDates {
                 "id=" + ModificationId +
                 ", dateCreated=" + dateCreated +
                 ", dateUpdated=" + dateUpdated +
-                ", chargeDeviceId=" + chargeDevice +
                 '}';
     }
+
+
 }

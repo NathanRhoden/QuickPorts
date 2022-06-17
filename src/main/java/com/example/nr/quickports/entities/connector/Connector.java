@@ -1,6 +1,7 @@
 package com.example.nr.quickports.entities.connector;
 
-import com.example.nr.quickports.entities.ChargeDevice;
+import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -17,18 +18,13 @@ public class Connector {
             strategy = GenerationType.SEQUENCE,
             generator = "connector_sequence"
     )
+    @JsonIgnore
     private Long id;
     private String ConnectorType;
     private String ratedOutputKW;
     private String ratedOutputVoltage;
     private String ratedOutputCurrent;
     private String chargeMethod;
-
-    @OneToOne(
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(name = "chargeDevice_id", referencedColumnName = "chargeDeviceId")
-    private ChargeDevice chargeDevice;
 
 
     public Connector(String connectorType, String ratedOutputKW, String ratedOutputVoltage, String ratedOutputCurrent, String chargeMethod) {
@@ -66,9 +62,6 @@ public class Connector {
         return chargeMethod;
     }
 
-    public ChargeDevice getChargeDevice() {
-        return chargeDevice;
-    }
 
     @Override
     public String toString() {
