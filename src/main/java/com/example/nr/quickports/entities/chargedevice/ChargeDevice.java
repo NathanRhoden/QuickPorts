@@ -4,9 +4,6 @@ import com.example.nr.quickports.dto.ChargeDeviceDTO;
 import com.example.nr.quickports.entities.connector.Connector;
 import com.example.nr.quickports.entities.location.Location;
 import com.example.nr.quickports.entities.modification.ModificationDates;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 
 
@@ -14,6 +11,17 @@ import javax.persistence.*;
 public class ChargeDevice {
 
     @Id
+    @SequenceGenerator(
+            name = "chargeDeviceId",
+            sequenceName = "charge_device_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "charge_device_sequence"
+    )
+    private Long id;
+
     private String chargeDeviceId;
 
     private String chargeDeviceName;
@@ -50,6 +58,7 @@ public class ChargeDevice {
         return chargeDeviceId;
     }
 
+
     public String getChargeDeviceName() {
         return chargeDeviceName;
     }
@@ -64,20 +73,6 @@ public class ChargeDevice {
 
     public Connector getConnector() {
         return connector;
-    }
-
-    public static ChargeDevice from(ChargeDeviceDTO chargeDeviceDTO) {
-
-        ChargeDevice chargeDevice = new ChargeDevice();
-
-        chargeDevice.setChargeDeviceId(chargeDevice.getChargeDeviceId());
-        chargeDevice.setChargeDeviceName(chargeDevice.getChargeDeviceName());
-        chargeDevice.setConnector(chargeDevice.getConnector());
-        chargeDevice.setLocation(chargeDevice.getLocation());
-        chargeDevice.setModificationDates(chargeDevice.getModificationDates());
-
-        return chargeDevice;
-
     }
 
     public void setChargeDeviceId(String chargeDeviceId) {
@@ -100,6 +95,7 @@ public class ChargeDevice {
         this.modificationDates = modificationDates;
     }
 
+
     @Override
     public String toString() {
         return "ChargeDevice{" +
@@ -108,4 +104,6 @@ public class ChargeDevice {
                 ", location=" + location +
                 '}';
     }
+
+
 }

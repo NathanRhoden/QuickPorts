@@ -54,4 +54,16 @@ public class Location {
     public Address getAddress() {
         return address;
     }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

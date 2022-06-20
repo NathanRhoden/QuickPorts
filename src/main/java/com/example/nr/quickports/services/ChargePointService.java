@@ -21,4 +21,11 @@ public class ChargePointService {
         return chargeDeviceRepository.findAll();
     }
 
+    public ChargeDevice addChargeDevice(ChargeDevice chargeDevice){
+
+        chargeDeviceRepository.save(chargeDevice);
+
+        return chargeDevice;
+    }
+
 }

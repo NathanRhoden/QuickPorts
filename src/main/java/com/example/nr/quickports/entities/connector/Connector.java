@@ -62,6 +62,25 @@ public class Connector {
         return chargeMethod;
     }
 
+    public void setConnectorType(String connectorType) {
+        ConnectorType = connectorType;
+    }
+
+    public void setRatedOutputKW(String ratedOutputKW) {
+        this.ratedOutputKW = ratedOutputKW;
+    }
+
+    public void setRatedOutputVoltage(String ratedOutputVoltage) {
+        this.ratedOutputVoltage = ratedOutputVoltage;
+    }
+
+    public void setRatedOutputCurrent(String ratedOutputCurrent) {
+        this.ratedOutputCurrent = ratedOutputCurrent;
+    }
+
+    public void setChargeMethod(String chargeMethod) {
+        this.chargeMethod = chargeMethod;
+    }
 
     @Override
     public String toString() {
