@@ -28,6 +28,14 @@ public class ChargeDeviceDTO {
 
     }
 
+    public ChargeDevice getChargeDevice() {
+        return chargeDevice;
+    }
+
+    public void setChargeDevice(ChargeDevice chargeDevice) {
+        this.chargeDevice = chargeDevice;
+    }
+
     public static ChargeDevice toEntity(ChargeDeviceDTO chargeDeviceDTO) {
 
         ChargeDevice chargeDevice = new ChargeDevice();
@@ -48,15 +56,4 @@ public class ChargeDeviceDTO {
 
         return chargeDevice;
     }
-
-
-    public ChargeDevice getChargeDevice() {
-        return chargeDevice;
-    }
-
-    public void setChargeDevice(ChargeDevice chargeDevice) {
-        this.chargeDevice = chargeDevice;
-    }
-
-
 }
