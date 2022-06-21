@@ -18,7 +18,7 @@ public class QuickportsApplication {
 		SpringApplication.run(QuickportsApplication.class, args);
 	}
 
-	@Bean
+
 	CommandLineRunner commandLineRunner(ChargeDeviceRepository chargeDeviceRepository){
 		return args -> {
 			Address address = new Address("107",

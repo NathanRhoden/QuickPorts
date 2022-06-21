@@ -21,7 +21,7 @@ public class ModificationDates {
 
     private String dateCreated;
 
-    private String  dateUpdated;
+    private String dateUpdated;
 
     public ModificationDates(String dateCreated, String dateUpdated) {
         this.dateCreated = dateCreated;
@@ -43,6 +43,14 @@ public class ModificationDates {
 
     public String getDateUpdated() {
         return dateUpdated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setDateUpdated(String dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
     @Override
