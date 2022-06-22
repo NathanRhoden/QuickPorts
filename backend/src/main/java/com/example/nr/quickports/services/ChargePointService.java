@@ -30,5 +30,12 @@ public class ChargePointService {
         return chargeDevice;
     }
 
+    public ChargeDevice findByDeviceId( String deviceId ) {
+        
+        return chargeDeviceRepository.findChargeDeviceByChargeDeviceId(deviceId);
+        
+    }
+
+
 
 }

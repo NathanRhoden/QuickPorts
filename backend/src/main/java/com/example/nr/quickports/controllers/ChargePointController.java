@@ -47,6 +47,19 @@ public class ChargePointController {
 
     }
 
+    @GetMapping(path ="/point")
+    @ResponseBody
+    public ResponseEntity<ChargeDevice> getChargeDeviceById(@RequestParam String id) {
+
+        ChargeDevice chargeDevice = chargePointService.findByDeviceId(id);
+        
+        return new ResponseEntity<>(chargeDevice, HttpStatus.OK);
+    }
+
+
+
+
+
 
 
 
