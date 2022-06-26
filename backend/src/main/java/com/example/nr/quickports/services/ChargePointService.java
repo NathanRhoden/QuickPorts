@@ -2,10 +2,12 @@ package com.example.nr.quickports.services;
 
 
 import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
+import com.example.nr.quickports.exceptions.DeviceNotFoundException;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.event.FocusEvent;
 import java.util.List;
 
 
@@ -27,15 +29,31 @@ public class ChargePointService {
 
         chargeDeviceRepository.save(chargeDevice);
 
+
         return chargeDevice;
     }
+    //FINDS DEVICE BY DEVICE ID STRING
+    public ChargeDevice findByDeviceId(String deviceId){
 
-    public ChargeDevice findByDeviceId( String deviceId ) {
-        
-        return chargeDeviceRepository.findChargeDeviceByChargeDeviceId(deviceId);
-        
+        return chargeDeviceRepository.findChargeDeviceByChargeDeviceId(deviceId)
+                .orElseThrow(
+                        () -> new DeviceNotFoundException(
+                                "No device found with id " + deviceId, new DeviceNotFoundException("Id does not exist "))
+                );
+
     }
 
+    //FINDS DEVICE BY INDEX ID
+    public ChargeDevice findById(Long id){
+
+        return chargeDeviceRepository.findById(id)
+                .orElseThrow(
+                        () -> new DeviceNotFoundException(
+                                "No device found with id " + id , new DeviceNotFoundException("Id does not exist "))
+
+                );
+
+    }
 
 
 }

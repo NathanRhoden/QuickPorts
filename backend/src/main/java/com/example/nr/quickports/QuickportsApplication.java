@@ -38,8 +38,9 @@ public class QuickportsApplication {
 			ChargeDevice chargeDevice = new ChargeDevice("fa6c94460e902005a0b660266190c8ba", "PP-12295", location, connector,
 					modificationDates);
 
-			chargeDeviceRepository.save(chargeDevice);
 
+			chargeDeviceRepository.save(chargeDevice);
+			
 
 		};
 	}
