@@ -7,7 +7,7 @@ import com.example.nr.quickports.entities.modification.ModificationDates;
 import javax.persistence.*;
 
 
-@Entity
+@Entity(name = "chargeDevice")
 public class ChargeDevice {
 
     @Id
@@ -34,6 +34,13 @@ public class ChargeDevice {
 
     @OneToOne(
             cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name ="connector_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "connector_id_fk"
+            )
     )
     private Connector connector;
 

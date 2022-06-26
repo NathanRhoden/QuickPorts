@@ -2,6 +2,8 @@ package com.example.nr.quickports.controllers;
 
 import com.example.nr.quickports.dto.ChargeDeviceDTO;
 import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
+import com.example.nr.quickports.exceptions.DeviceException;
+import com.example.nr.quickports.exceptions.DeviceNotFoundException;
 import com.example.nr.quickports.services.ChargePointService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class ChargePointController {
         this.chargePointService = chargePointService;
     }
 
-
+    //RETURNS A LIST OF ALL CHARGE DEVICES
     @GetMapping(path = "/all")
     public ResponseEntity<List<ChargeDeviceDTO>> getAllChargePoints() {
 
@@ -36,8 +38,9 @@ public class ChargePointController {
 
     }
 
+    //SAVES DEVICE TO DATABASE
     @PostMapping
-    public ResponseEntity<ChargeDevice> saveChargeDevice (@RequestBody ChargeDeviceDTO chargeDeviceDTO) {
+    public ResponseEntity<ChargeDevice> saveChargeDevice(@RequestBody ChargeDeviceDTO chargeDeviceDTO) {
 
         ChargeDevice chargeDevice = ChargeDeviceDTO.toEntity(chargeDeviceDTO);
 
@@ -47,18 +50,27 @@ public class ChargePointController {
 
     }
 
-    @GetMapping(path ="/point")
+    //SEARCHES FOR DEVICES BY STRING ID
+    @GetMapping(path = "/device")
     @ResponseBody
-    public ResponseEntity<ChargeDevice> getChargeDeviceById(@RequestParam String id) {
+    public ResponseEntity<ChargeDevice> getChargeDeviceByChargeDeviceId(@RequestParam String id) {
 
         ChargeDevice chargeDevice = chargePointService.findByDeviceId(id);
-        
+
         return new ResponseEntity<>(chargeDevice, HttpStatus.OK);
     }
 
 
+    //SEARCHES FRO DEVICES BY LONG ID
+    @GetMapping(path = "{id}")
+    @ResponseBody
+    public ResponseEntity<ChargeDevice> getDevicebyId(@PathVariable("id") Long id) {
 
+        ChargeDevice chargeDevice = chargePointService.findById(id);
 
+        return new ResponseEntity<>(chargeDevice, HttpStatus.OK);
+
+    }
 
 
 

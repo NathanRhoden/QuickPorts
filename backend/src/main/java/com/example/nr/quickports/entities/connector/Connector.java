@@ -27,6 +27,7 @@ public class Connector {
     private String chargeMethod;
 
 
+
     public Connector(String connectorType, String ratedOutputKW, String ratedOutputVoltage, String ratedOutputCurrent, String chargeMethod) {
         ConnectorType = connectorType;
         this.ratedOutputKW = ratedOutputKW;
