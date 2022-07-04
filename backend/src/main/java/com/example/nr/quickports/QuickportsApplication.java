@@ -6,6 +6,10 @@ import com.example.nr.quickports.entities.location.Address;
 import com.example.nr.quickports.entities.location.Location;
 import com.example.nr.quickports.entities.modification.ModificationDates;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
+import com.javadocmd.simplelatlng.Geohasher;
+import com.javadocmd.simplelatlng.LatLng;
+import com.javadocmd.simplelatlng.LatLngTool;
+import com.javadocmd.simplelatlng.util.LengthUnit;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -42,6 +46,26 @@ public class QuickportsApplication {
 			chargeDeviceRepository.save(chargeDevice);
 			
 
+		};
+	}
+
+	@Bean
+	CommandLineRunner commandLineRunnerLatLng(){
+		return args -> {
+			LatLng pointA = new LatLng(51.543784, -0.244061);
+			LatLng pointB = new LatLng(51.530182, -0.167535);
+
+			double distanceInMiles = LatLngTool.distance(pointA, pointB , LengthUnit.KILOMETER);
+
+			String hashA = Geohasher.hash(pointA);
+			String hashB = Geohasher.hash(pointB);
+
+			LatLng fiveMileTravel = LatLngTool.travel(pointA , LatLngTool.Bearing.EAST , 5 , LengthUnit.MILE);
+
+			double bearing = LatLngTool.initialBearing(pointA , new LatLng(51.543781 , -0.220789));
+
+			System.out.println(fiveMileTravel);
+			System.out.println(bearing);
 		};
 	}
 }
