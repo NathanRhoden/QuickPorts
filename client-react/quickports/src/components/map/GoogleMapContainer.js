@@ -4,7 +4,7 @@ import "../map/GoogleMapContainer.css";
 
 export default function GoogleMapContainer(props) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_JS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
   if (!isLoaded) return <div>Loading...!</div>;
