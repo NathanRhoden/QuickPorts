@@ -13,7 +13,6 @@ export default function GoogleMapContainer(props) {
   function Home() {
     const centerMarker = useMemo(() => ({ lat: 51.507351, lng: -0.127758 }), []);
 
-
     return (
       <GoogleMap
         zoom={props.zoom}

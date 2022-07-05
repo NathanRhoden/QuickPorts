@@ -1,9 +1,13 @@
 import "./App.css";
 import GoogleMapContainer from "./components/map/GoogleMapContainer";
-import SearchColumn from "./components/searchformbar/SearchColumn";
+import SidePanel from "./components/sidepanel/SidePanel";
 import "./components/map/GoogleMapContainer.css";
+import './locationservice/GetUserLocation'
+import Header from "./layout/header/Header";
 
 function App() {
+  //const {lat , lng} = getUserLocation();
+
   const mapConfig = {
     zoom: 13,
     center: { lat: 51.507351, lng: -0.127758 },
@@ -11,11 +15,14 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <Header />
+      </div>
       <div className="[map-container]">
         <GoogleMapContainer zoom={mapConfig.zoom} center={mapConfig.center} />
       </div>
       <div>
-        <SearchColumn />
+        <SidePanel />
       </div>
     </div>
   );
