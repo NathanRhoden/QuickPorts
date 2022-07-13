@@ -2,6 +2,7 @@ import { useState, useMemo , useEffect} from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import "../map/GoogleMapContainer.css";
 
+
 export default function GoogleMapContainer(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
@@ -10,12 +11,12 @@ export default function GoogleMapContainer(props) {
 
 
   if (!isLoaded) return <div>Loading...!</div>;
-  return <Home />;
+  return <MapContainer />;
 
   
-  function Home() {
+  function MapContainer() {
     const [coordinates, setCoordinates] = useState({ lat: 90, lng: 90 });
-    
+
     const getUserLocation = () => {
       async function success(pos) {
         const crd = await pos.coords;

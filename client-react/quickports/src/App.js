@@ -5,14 +5,16 @@ import "./components/map/GoogleMapContainer.css";
 import "./locationservice/GetUserLocation";
 import Header from "./layout/header/Header";
 
-
 function App() {
   const mapConfig = {
-    zoom: 13,
+    zoom: 14,
     center: { lat: 51.507351, lng: -0.127758 },
   };
 
-  return (
+  const body = document.body.style;
+  body.overflow = 'hidden';
+
+  return ( 
     <div className="App">
       <div>
         <Header />
