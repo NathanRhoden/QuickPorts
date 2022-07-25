@@ -11,12 +11,13 @@ export default function GoogleMapContainer(props) {
 
 
   if (!isLoaded) return <div>Loading...!</div>;
-  return <MapContainer />;
+  return <Home />;
 
   
-  function MapContainer() {
-    const [coordinates, setCoordinates] = useState({ lat: 90, lng: 90 });
-
+  function Home() {
+    
+    const [coordinates, setCoordinates] = useState({ lat: undefined, lng: undefined });
+    
     const getUserLocation = () => {
       async function success(pos) {
         const crd = await pos.coords;
@@ -31,10 +32,10 @@ export default function GoogleMapContainer(props) {
       getUserLocation();
     }, []);
 
-    
+    //TEST-MARKER PROPS SHOULD BE TAKEN FROM ANOTHER STATE
     const centerMarker = useMemo(
-      () => ({ lat: 51.507351, lng: -0.127758 }),
-      []
+      () => ({ lat: coordinates.lat, lng: coordinates.lng}),
+      [coordinates]
     );
     
     return (

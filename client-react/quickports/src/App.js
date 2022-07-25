@@ -6,6 +6,7 @@ import "./locationservice/GetUserLocation";
 import Header from "./layout/header/Header";
 
 function App() {
+  
   const mapConfig = {
     zoom: 14,
     center: { lat: 51.507351, lng: -0.127758 },

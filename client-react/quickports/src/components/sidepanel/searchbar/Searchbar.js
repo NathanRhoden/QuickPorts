@@ -2,12 +2,18 @@ import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 
 import "./SearchBar.css";
+import { useState } from "react";
+
 
 const SearchBar = () => {
+
+  
+  const [chargeDevice , setChargeDevice] = useState({});
+  
   const changeHandler = () => {
     console.log("Change");
   };
-  
+
   const submitHandler = (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
