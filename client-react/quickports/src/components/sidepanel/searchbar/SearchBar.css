@@ -1,0 +1,10 @@
+.SearchBarBody{
+    position: relative;
+
+    top : 3vh;
+    width : 90%;
+
+    padding: 10px;
+    border :solid black 1px ;  
+}
+

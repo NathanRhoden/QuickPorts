@@ -2,6 +2,7 @@ import { useState, useMemo , useEffect} from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import "../map/GoogleMapContainer.css";
 
+
 export default function GoogleMapContainer(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
@@ -14,7 +15,8 @@ export default function GoogleMapContainer(props) {
 
   
   function Home() {
-    const [coordinates, setCoordinates] = useState({ lat: 90, lng: 90 });
+    
+    const [coordinates, setCoordinates] = useState({ lat: undefined, lng: undefined });
     
     const getUserLocation = () => {
       async function success(pos) {
@@ -30,10 +32,10 @@ export default function GoogleMapContainer(props) {
       getUserLocation();
     }, []);
 
-    
+    //TEST-MARKER PROPS SHOULD BE TAKEN FROM ANOTHER STATE
     const centerMarker = useMemo(
-      () => ({ lat: 51.507351, lng: -0.127758 }),
-      []
+      () => ({ lat: coordinates.lat, lng: coordinates.lng}),
+      [coordinates]
     );
     
     return (
