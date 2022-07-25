@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
 
-function postCodeConversion(postCode) {
-  const convertPostCodeToCoordinate = async () => {
-    const response = await fetch(`https://api.postcodes.io/postcodes/${postCode}`);
-    const json = await response.json();
+const convertPostCodeToCoordinate = async (postCode) => {
+  const response = await fetch(`https://api.postcodes.io/postcodes/${postCode}`)
+    .then((res) => res.json())
+    .then((body) => console.log(body.result));
 
-    return json.body.result.latitude;
-  }
-}
+};
 
-
-export default  postCodeConversion;
+export default convertPostCodeToCoordinate;

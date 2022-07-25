@@ -1,16 +1,20 @@
 import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 
+import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
+
 import "./SearchBar.css";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 
 const SearchBar = () => {
+  
+  //State of User Input
+  const [input , setInput] = useState('');
 
-  
-  const [chargeDevice , setChargeDevice] = useState({});
-  
-  const changeHandler = () => {
+
+  const changeHandler = (e) => {
+    setInput(e.target.value)
     console.log("Change");
   };
 
@@ -18,10 +22,9 @@ const SearchBar = () => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
 
-    fetch("http://localhost:8080/api/v1/points/1")
-      .then((response) => response.json())
-      .then((body) => console.log(body))
-      .catch((err) => console.log(err));
+    console.log(input);
+    convertPostCodeToCoordinate(input);
+    
   };
 
   return (
@@ -30,7 +33,9 @@ const SearchBar = () => {
       <div>
         <form onSubmit={submitHandler}>
           <Input
+            type="text"
             placeholder="Search"
+            value = {input}
             fullWidth={true}
             onChange={changeHandler}
           />
