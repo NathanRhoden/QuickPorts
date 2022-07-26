@@ -51,6 +51,7 @@ public class ChargePointController {
     }
 
     //SEARCHES FOR DEVICES BY STRING ID
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/device")
     @ResponseBody
     public ResponseEntity<ChargeDevice> getChargeDeviceByChargeDeviceId(@RequestParam String id) {
@@ -61,7 +62,8 @@ public class ChargePointController {
     }
 
 
-    //SEARCHES FRO DEVICES BY LONG ID
+    //SEARCHES FOR DEVICES BY LONG ID
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "{id}")
     @ResponseBody
     public ResponseEntity<ChargeDevice> getDevicebyId(@PathVariable("id") Long id) {
