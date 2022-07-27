@@ -10,17 +10,16 @@ public class DistanceFromOrigin {
 
     /**Return true if device distance is equal to or less than the distance from the origin device
      *
-     * @param pointA Origin location
-     * @param pointB Location being checked
+     * @param userProvidedCoordinate Origin location
+     * @param chargeDevice Location being checked
      * @param distanceFromOrigin maximum distance from origin
      * @return
      */
-    public static boolean isDeviceInRange(Location pointA, Location pointB, Long distanceFromOrigin){
+    public static boolean isDeviceInRange(LatLng userProvidedCoordinate, Location chargeDevice, double distanceFromOrigin){
 
-       LatLng origin = fromString(pointA.getLatitude() , pointA.getLongitude());
-       LatLng destination = fromString(pointB.getLatitude() , pointB.getLongitude());
+        LatLng destination = fromString(chargeDevice.getLatitude() , chargeDevice.getLongitude());
 
-        return LatLngTool.distance(origin, destination, LengthUnit.MILE) < distanceFromOrigin;
+        return LatLngTool.distance(userProvidedCoordinate, destination, LengthUnit.MILE) <= distanceFromOrigin;
     }
 
 
@@ -35,8 +34,7 @@ public class DistanceFromOrigin {
 
 
     //Returns Double from a string
-    private static  double returnStringAsDouble(String string){return Double.parseDouble(string);}
-
+    private static double returnStringAsDouble(String string){return Double.parseDouble(string);}
 
 
 }
