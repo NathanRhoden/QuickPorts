@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SearchBar = () => {
   //State of User Input
@@ -13,7 +13,6 @@ const SearchBar = () => {
   const [postCode, setPostCode] = useState({});
 
   const changeHandler = (e) => {
-    
     var value = e.target.value;
     setInput(value);
     console.log(value);
@@ -29,9 +28,15 @@ const SearchBar = () => {
     
   };
 
+  useEffect(() => {
+    convTest(input)
+  },[input])
+
   const convTest = async (input) =>{
       let jsonData = await convertPostCodeToCoordinate(input) 
       setPostCode(jsonData.result)
+      
+      //Fetch with LatLng will replace this
       console.log(postCode.latitude, postCode.longitude);
   }
 
