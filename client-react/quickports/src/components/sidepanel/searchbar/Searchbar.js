@@ -4,28 +4,36 @@ import SearchIcon from "@mui/icons-material/Search";
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
-import { useState , useEffect } from "react";
-
+import { useState } from "react";
 
 const SearchBar = () => {
-  
   //State of User Input
-  const [input , setInput] = useState('');
+  const [input, setInput] = useState('');
 
+  const [postCode, setPostCode] = useState({});
 
   const changeHandler = (e) => {
-    setInput(e.target.value)
-    console.log("Change");
+    
+    var value = e.target.value;
+    setInput(value);
+    console.log(value);
+    console.log(input);
+    
+    
   };
-
   const submitHandler = (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-
     console.log(input);
-    convertPostCodeToCoordinate(input);
+    convTest(input);
     
   };
+
+  const convTest = async (input) =>{
+      let jsonData = await convertPostCodeToCoordinate(input) 
+      setPostCode(jsonData.result)
+      console.log(postCode.latitude, postCode.longitude);
+  }
 
   return (
     <div>
@@ -35,7 +43,7 @@ const SearchBar = () => {
           <Input
             type="text"
             placeholder="Search"
-            value = {input}
+            value={input}
             fullWidth={true}
             onChange={changeHandler}
           />
@@ -46,3 +54,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+
