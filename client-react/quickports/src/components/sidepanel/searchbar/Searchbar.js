@@ -4,42 +4,33 @@ import SearchIcon from "@mui/icons-material/Search";
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback } from "react";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   //State of User Input
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
-  const [postCode, setPostCode] = useState({});
-
-  const changeHandler = (e) => {
-    var value = e.target.value;
-    setInput(value);
-    console.log(value);
-    console.log(input);
-    
-    
-  };
+  //state of Coordinate fetch
+  const [coordinates, setCoordinates] = useState({});
+  
+  const convTest = useCallback(async (input) => {
+    let jsonData = await convertPostCodeToCoordinate(input);
+    setCoordinates(jsonData.result)
+  } , []);
+  
+  useEffect(() =>{
+    if(input.length >= 5){
+      convTest(input);
+    } 
+  }, [input , convTest])
+  
   const submitHandler = (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-    console.log(input);
-    convTest(input);
-    
+    console.log(coordinates);
   };
-
-  useEffect(() => {
-    convTest(input)
-  },[input])
-
-  const convTest = async (input) =>{
-      let jsonData = await convertPostCodeToCoordinate(input) 
-      setPostCode(jsonData.result)
-      
-      //Fetch with LatLng will replace this
-      console.log(postCode.latitude, postCode.longitude);
-  }
-
+  
+  
   return (
     <div>
       <SearchIcon />
@@ -50,7 +41,7 @@ const SearchBar = () => {
             placeholder="Search"
             value={input}
             fullWidth={true}
-            onChange={changeHandler}
+            onChange={(e => setInput(e.target.value))}
           />
         </form>
       </div>
@@ -59,4 +50,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-
