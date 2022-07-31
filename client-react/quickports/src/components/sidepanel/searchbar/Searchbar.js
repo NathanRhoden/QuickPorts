@@ -16,7 +16,7 @@ const SearchBar = (props) => {
   const convTest = useCallback(async (input) => {
     let jsonData = await convertPostCodeToCoordinate(input);
     setCoordinates(jsonData.result)
-    props.coordinates(jsonData.result);
+    props.setCoordinates(jsonData.result.latitude,jsonData.result.longitude );
   } , []);
   
   useEffect(() =>{
@@ -31,7 +31,6 @@ const SearchBar = (props) => {
     console.log(coordinates);
     
   };
-  
   
   return (
     <div>

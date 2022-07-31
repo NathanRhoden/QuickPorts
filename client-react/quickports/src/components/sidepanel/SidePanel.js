@@ -2,7 +2,7 @@ import "./SidePanel.css";
 import '../sidepanel/searchbar/SearchBar.css';
 
 import SearchBar from "./searchbar/Searchbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const SidePanel = () => {
@@ -12,11 +12,10 @@ const SidePanel = () => {
   //Lifted state from the searchBar component
   const [userSearchedCoordinates , setUserSearchedCoordinates] = useState({});
 
-
   return (
     <div className="panelBody">
       <div className="SearchBarBody">
-        <SearchBar coordinates={setUserSearchedCoordinates}/>
+        <SearchBar setCoordinates={setUserSearchedCoordinates} />
       </div>
     </div>
   );

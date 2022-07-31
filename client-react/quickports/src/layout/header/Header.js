@@ -1,13 +1,18 @@
 import { Fragment } from "react";
 import { AppBar } from "@mui/material";
-import { Box } from '@mui/material';
-import Toolbar from '@mui/material/Toolbar';
+import { Box } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
+import "./Header.css";
 
-import './Header.css';
-
-const Header = (props) => {
+const Header = () => {
   return (
     <div className="header">
+      <div className="header-title">
+        <div className="header-title-icon">
+          <img src="thunderbolt.png" alt="thunderbolt"></img>
+        </div>
+        <h1>QuickPorts</h1>
+      </div>
       <Fragment>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static"></AppBar>
