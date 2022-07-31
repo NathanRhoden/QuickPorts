@@ -1,38 +1,47 @@
 import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 
+import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
+
 import "./SearchBar.css";
-import { useState } from "react";
+import { useEffect, useState ,useCallback } from "react";
 
+const SearchBar = (props) => {
+  //State of User Input
+  const [input, setInput] = useState("");
 
-const SearchBar = () => {
-
+  //state of Coordinate fetch
+  const [coordinates, setCoordinates] = useState({});
   
-  const [chargeDevice , setChargeDevice] = useState({});
+  const convTest = useCallback(async (input) => {
+    let jsonData = await convertPostCodeToCoordinate(input);
+    setCoordinates(jsonData.result)
+  } , []);
   
-  const changeHandler = () => {
-    console.log("Change");
-  };
-
+  useEffect(() =>{
+    if(input.length >= 5){
+      convTest(input);
+    } 
+  }, [input , convTest])
+  
   const submitHandler = (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-
-    fetch("http://localhost:8080/api/v1/points/1")
-      .then((response) => response.json())
-      .then((body) => console.log(body))
-      .catch((err) => console.log(err));
+    console.log(coordinates);
   };
-
+  
+  
   return (
     <div>
       <SearchIcon />
       <div>
         <form onSubmit={submitHandler}>
           <Input
+            type="text"
             placeholder="Search"
+            value={input}
             fullWidth={true}
-            onChange={changeHandler}
+            onChange={(e => setInput(e.target.value))}
           />
         </form>
       </div>

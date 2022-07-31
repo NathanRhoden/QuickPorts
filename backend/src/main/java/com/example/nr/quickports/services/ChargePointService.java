@@ -4,6 +4,7 @@ package com.example.nr.quickports.services;
 import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
 import com.example.nr.quickports.exceptions.DeviceNotFoundException;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
+import com.javadocmd.simplelatlng.LatLng;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 @Service
-public class ChargePointService {
+public class ChargePointService implements ChargeDeviceServiceInterface {
 
     private final ChargeDeviceRepository chargeDeviceRepository;
 
@@ -32,6 +33,7 @@ public class ChargePointService {
 
         return chargeDevice;
     }
+
     //FINDS DEVICE BY DEVICE ID STRING
     public ChargeDevice findByDeviceId(String deviceId){
 
@@ -54,6 +56,24 @@ public class ChargePointService {
                 );
 
     }
+
+
+    @Override
+    public ChargeDevice deleteChargeDeviceById(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ChargeDevice> findChargeDevicesByDistance(LatLng coordinateLocation, Long Distance) {
+
+        List<ChargeDevice> chargeDeviceList = chargeDeviceRepository.findAll();
+
+
+
+        return null;
+    }
+
+
 
 
 }
