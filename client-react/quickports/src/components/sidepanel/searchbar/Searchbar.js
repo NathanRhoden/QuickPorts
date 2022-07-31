@@ -16,6 +16,7 @@ const SearchBar = (props) => {
   const convTest = useCallback(async (input) => {
     let jsonData = await convertPostCodeToCoordinate(input);
     setCoordinates(jsonData.result)
+    props.coordinates(jsonData.result);
   } , []);
   
   useEffect(() =>{
@@ -28,6 +29,7 @@ const SearchBar = (props) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
     console.log(coordinates);
+    
   };
   
   

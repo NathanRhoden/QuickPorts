@@ -5,8 +5,6 @@ const convertPostCodeToCoordinate = async (postCode) => {
     .then(data => data.json());
   
     return data; 
-  
-
-};
+  };
 
 export default convertPostCodeToCoordinate;
