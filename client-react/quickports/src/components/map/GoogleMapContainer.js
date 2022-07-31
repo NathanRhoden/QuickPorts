@@ -16,7 +16,7 @@ export default function GoogleMapContainer(props) {
   
   function Home() {
     
-    const [coordinates, setCoordinates] = useState({ lat: undefined, lng: undefined });
+    const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     
     const getUserLocation = () => {
       async function success(pos) {
