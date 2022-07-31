@@ -9,10 +9,14 @@ const SidePanel = () => {
 
   const [update  , setUpdateDevice] = useState({});
 
+  //Lifted state from the searchBar component
+  const [userSearchedCoordinates , setUserSearchedCoordinates] = useState({});
+
+
   return (
     <div className="panelBody">
       <div className="SearchBarBody">
-        <SearchBar />
+        <SearchBar coordinates={setUserSearchedCoordinates}/>
       </div>
     </div>
   );
