@@ -23,6 +23,7 @@ export default function GoogleMapContainer(props) {
         const crd = await pos.coords;
         setCoordinates({ lat: crd.latitude, lng: crd.longitude });
         console.log(crd.latitude, crd.longitude);
+        
       }
   
       navigator.geolocation.getCurrentPosition(success);
