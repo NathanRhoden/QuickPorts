@@ -54,12 +54,14 @@ const SidePanel = () => {
   const [update, setUpdateDevice] = useState({});
 
   //Lifted state from the searchBar component
-  const [userSearchedCoordinates, setUserSearchedCoordinates] = useState({});
+  const [userSearchedCoordinates, setUserSearchedCoordinates] = useState({lat : 0, lng: 0});
+
+  console.log(userSearchedCoordinates.lat);
 
   return (
     <div className="panelBody">
       <div className="SearchBarBody">
-        <SearchBar setCoordinates={setUserSearchedCoordinates} />
+        <SearchBar setCoordinates={setUserSearchedCoordinates} coords={userSearchedCoordinates} />
       </div>
       <div className="card-container">
         <Devices devicelist={mockDevices} />

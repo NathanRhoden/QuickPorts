@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
-import { useEffect, useState ,useCallback } from "react";
+import { useEffect, useState , useCallback } from "react";
 
 const SearchBar = (props) => {
   //State of User Input
@@ -13,22 +13,22 @@ const SearchBar = (props) => {
   //state of Coordinate fetch
   const [coordinates, setCoordinates] = useState({});
   
-  const convTest = useCallback(async (input) => {
+  const inputConversion = useCallback(async (input) => {
     let jsonData = await convertPostCodeToCoordinate(input);
     setCoordinates(jsonData.result)
-    props.setCoordinates(jsonData.result.latitude,jsonData.result.longitude );
+    props.setCoordinates({lat :jsonData.result.latitude, lng :jsonData.result.longitude});
   } , []);
   
   useEffect(() =>{
     if(input.length >= 5){
-      convTest(input);
+      inputConversion(input);
     } 
-  }, [input , convTest])
+  }, [input , inputConversion])
   
   const submitHandler = (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-    console.log(coordinates);
+    console.log(props.coords);
     
   };
   
