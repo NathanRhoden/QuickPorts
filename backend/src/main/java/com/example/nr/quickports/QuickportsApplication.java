@@ -6,6 +6,7 @@ import com.example.nr.quickports.entities.location.Address;
 import com.example.nr.quickports.entities.location.Location;
 import com.example.nr.quickports.entities.modification.ModificationDates;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
+import com.example.nr.quickports.services.ChargePointService;
 import com.javadocmd.simplelatlng.Geohasher;
 import com.javadocmd.simplelatlng.LatLng;
 import com.javadocmd.simplelatlng.LatLngTool;
@@ -49,7 +50,7 @@ public class QuickportsApplication {
 		};
 	}
 
-	@Bean
+
 	CommandLineRunner commandLineRunnerLatLng(){
 		return args -> {
 			LatLng pointA = new LatLng(51.543784, -0.244061);
@@ -68,4 +69,5 @@ public class QuickportsApplication {
 			System.out.println(bearing);
 		};
 	}
+
 }

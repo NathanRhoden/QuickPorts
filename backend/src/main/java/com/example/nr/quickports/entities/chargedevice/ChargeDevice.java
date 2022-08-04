@@ -1,9 +1,10 @@
 package com.example.nr.quickports.entities.chargedevice;
 
-import com.example.nr.quickports.dto.ChargeDeviceDTO;
 import com.example.nr.quickports.entities.connector.Connector;
 import com.example.nr.quickports.entities.location.Location;
 import com.example.nr.quickports.entities.modification.ModificationDates;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 
 
@@ -22,16 +23,17 @@ public class ChargeDevice {
     )
     private Long id;
 
+
     private String chargeDeviceId;
 
     private String chargeDeviceName;
 
-
+    @NonNull
     @OneToOne(
             cascade = CascadeType.ALL
     )
     private Location location;
-
+    @NonNull
     @OneToOne(
             cascade = CascadeType.ALL
     )
@@ -42,11 +44,13 @@ public class ChargeDevice {
                     name = "connector_id_fk"
             )
     )
+
     private Connector connector;
 
     @OneToOne(
             cascade = CascadeType.ALL
     )
+    @NonNull
     private ModificationDates modificationDates;
 
 

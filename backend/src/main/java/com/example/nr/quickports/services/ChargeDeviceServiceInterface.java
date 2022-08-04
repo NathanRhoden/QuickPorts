@@ -9,7 +9,7 @@ public interface ChargeDeviceServiceInterface {
 
     ChargeDevice deleteChargeDeviceById(Long id);
 
-    List<ChargeDevice> findChargeDevicesByDistance(LatLng coordinateLocation , Long Distance);
+    List<ChargeDevice> findChargeDevicesByDistance(LatLng coordinateLocation , double Distance);
 
 
 
