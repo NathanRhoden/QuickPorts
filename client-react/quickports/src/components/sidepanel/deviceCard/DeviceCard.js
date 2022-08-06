@@ -10,7 +10,7 @@ const DeviceCard = (device) => {
     <div>
       <Card className="card-body">
         <CardContent>
-          <DeviceItem address={device.address} deviceName={device.deviceName} voltage={device.voltage} />
+          <DeviceItem address={device.address}  voltageInformation={device.voltageInformation} />
         </CardContent>
       </Card>
     </div>
