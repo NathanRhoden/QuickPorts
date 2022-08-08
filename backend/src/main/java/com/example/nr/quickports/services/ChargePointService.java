@@ -3,13 +3,14 @@ package com.example.nr.quickports.services;
 
 import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
 import com.example.nr.quickports.exceptions.DeviceNotFoundException;
+import com.example.nr.quickports.helpers.DistanceFromOrigin;
 import com.example.nr.quickports.repositories.ChargeDeviceRepository;
 import com.javadocmd.simplelatlng.LatLng;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.event.FocusEvent;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -64,13 +65,12 @@ public class ChargePointService implements ChargeDeviceServiceInterface {
     }
 
     @Override
-    public List<ChargeDevice> findChargeDevicesByDistance(LatLng coordinateLocation, Long Distance) {
+    public List<ChargeDevice> findChargeDevicesByDistance(LatLng coordinateLocation, double distance) {
 
-        List<ChargeDevice> chargeDeviceList = chargeDeviceRepository.findAll();
-
-
-
-        return null;
+        return chargeDeviceRepository.findAll()
+                .stream()
+                .filter(chargeDevice -> DistanceFromOrigin.isDeviceInRange(coordinateLocation , chargeDevice.getLocation() , distance ))
+                .collect(Collectors.toList());
     }
 
 

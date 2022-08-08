@@ -5,6 +5,7 @@ import com.example.nr.quickports.entities.chargedevice.ChargeDevice;
 import com.example.nr.quickports.exceptions.DeviceException;
 import com.example.nr.quickports.exceptions.DeviceNotFoundException;
 import com.example.nr.quickports.services.ChargePointService;
+import com.javadocmd.simplelatlng.LatLng;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class ChargePointController {
     }
 
     //RETURNS A LIST OF ALL CHARGE DEVICES
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/all")
     public ResponseEntity<List<ChargeDeviceDTO>> getAllChargePoints() {
 
@@ -71,6 +73,22 @@ public class ChargePointController {
         ChargeDevice chargeDevice = chargePointService.findById(id);
 
         return new ResponseEntity<>(chargeDevice, HttpStatus.OK);
+
+    }
+
+    //TEST DISTANCE
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/distance")
+    @ResponseBody
+    public ResponseEntity<List<ChargeDevice>> getDevicebyDistance(@RequestParam double d,
+                                                                  @RequestParam double latitude,
+                                                                  @RequestParam double longitude) {
+
+        LatLng userSearchedCoordinate = new LatLng(latitude, longitude);
+
+        List<ChargeDevice> chargeDeviceList = chargePointService.findChargeDevicesByDistance( userSearchedCoordinate ,  d);
+
+        return new ResponseEntity<>(chargeDeviceList , HttpStatus.OK);
 
     }
 

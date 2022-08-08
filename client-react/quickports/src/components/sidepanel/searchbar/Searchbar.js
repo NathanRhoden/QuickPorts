@@ -4,34 +4,28 @@ import SearchIcon from "@mui/icons-material/Search";
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
-import { useEffect, useState ,useCallback } from "react";
+import { useState } from "react";
 
 const SearchBar = (props) => {
   //State of User Input
   const [input, setInput] = useState("");
 
-  //state of Coordinate fetch
-  const [coordinates, setCoordinates] = useState({});
-  
-  const convTest = useCallback(async (input) => {
-    let jsonData = await convertPostCodeToCoordinate(input);
-    setCoordinates(jsonData.result)
-    props.setCoordinates(jsonData.result.latitude,jsonData.result.longitude );
-  } , []);
-  
-  useEffect(() =>{
-    if(input.length >= 5){
-      convTest(input);
-    } 
-  }, [input , convTest])
-  
-  const submitHandler = (e) => {
+  const inputConversion = async (postcode) => {
+    let jsonData = await convertPostCodeToCoordinate(postcode);
+    return jsonData.result;
+  };
+
+  const submitHandler = async (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-    console.log(coordinates);
-    
+    const result = await inputConversion(input);
+    fetch(
+      `http://localhost:8080/api/v1/points/distance?d=10&latitude=${result.latitude}&longitude=${result.longitude}`
+    )
+      .then((response) => response.json())
+      .then((data) => props.setDevices([data]));
   };
-  
+
   return (
     <div>
       <SearchIcon />
@@ -42,7 +36,7 @@ const SearchBar = (props) => {
             placeholder="Search"
             value={input}
             fullWidth={true}
-            onChange={(e => setInput(e.target.value))}
+            onChange={(e) => setInput(e.target.value)}
           />
         </form>
       </div>

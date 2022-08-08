@@ -1,0 +1,24 @@
+.card-body {
+  width: 20vw;
+  height: 200px;
+  
+  margin: 10px;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+ 
+}
+
+.card-body-color {
+  width: 20vw;
+  height: 200px;
+
+  margin: 10px;
+
+  border-radius: 10px;
+  background-color: aqua;
+}

@@ -4,27 +4,27 @@ import SidePanel from "./components/sidepanel/SidePanel";
 import "./components/map/GoogleMapContainer.css";
 import "./locationservice/GetUserLocation";
 import Header from "./layout/header/Header";
+import { useState } from "react";
 
 function App() {
-  
-  const mapConfig = {
-    zoom: 14,
-    center: { lat: 51.507351, lng: -0.127758 },
-  };
+  const [returnedChargeDevices, setReturnedChargeDevices] = useState([]);
 
   const body = document.body.style;
-  body.overflow = 'hidden';
+  body.overflow = "hidden";
 
-  return ( 
+  return (
     <div className="App">
       <div>
         <Header />
       </div>
       <div className="[map-container]">
-        <GoogleMapContainer zoom={mapConfig.zoom} />
+        <GoogleMapContainer devices={returnedChargeDevices} />
       </div>
       <div>
-        <SidePanel />
+        <SidePanel
+          devices={returnedChargeDevices}
+          setDevices={setReturnedChargeDevices}
+        />
       </div>
     </div>
   );
