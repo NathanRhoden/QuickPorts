@@ -19,6 +19,8 @@ const SearchBar = (props) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
     const result = await inputConversion(input);
+    props.setCoordinates({lat : result.latitude, lng : result.longitude});
+    props.setHasSearched(true);
     fetch(
       `http://localhost:8080/api/v1/points/distance?d=10&latitude=${result.latitude}&longitude=${result.longitude}`
     )

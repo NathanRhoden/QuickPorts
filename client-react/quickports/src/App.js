@@ -8,22 +8,31 @@ import { useState } from "react";
 
 function App() {
   const [returnedChargeDevices, setReturnedChargeDevices] = useState([]);
+  const [userSearchedCoordinate , setCoordinates] = useState({lat : 0, lng : 0});
+
+  const [userHasSearched , setHasSearched] = useState(false);
 
   const body = document.body.style;
   body.overflow = "hidden";
 
+  console.log(userSearchedCoordinate);
   return (
     <div className="App">
       <div>
         <Header />
       </div>
       <div className="[map-container]">
-        <GoogleMapContainer devices={returnedChargeDevices} />
+        <GoogleMapContainer 
+          devices={returnedChargeDevices} 
+          userHasSearched={userHasSearched}
+          userSearchedCoordinate={userSearchedCoordinate}/>
       </div>
       <div>
         <SidePanel
           devices={returnedChargeDevices}
           setDevices={setReturnedChargeDevices}
+          setCoordinates={setCoordinates}
+          setHasSearched={setHasSearched}
         />
       </div>
     </div>
