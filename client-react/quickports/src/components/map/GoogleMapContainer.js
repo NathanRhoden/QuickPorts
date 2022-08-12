@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect , useCallBack } from "react";
 import { GoogleMap, useLoadScript} from "@react-google-maps/api";
 import "../map/GoogleMapContainer.css";
 import Markers from "./marker/Markers";
@@ -43,7 +43,8 @@ export default function GoogleMapContainer(props) {
       <GoogleMap
         zoom={14}
         center={{ lat: coordinates.lat, lng: coordinates.lng }}
-        mapContainerClassName="map-container"
+        mapContainerClassName="map-container" 
+        
       >
         {props.devices.length > 0 && <Markers devicelist={props.devices[0]} />}
       </GoogleMap>

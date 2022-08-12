@@ -2,6 +2,9 @@ import { MarkerF } from "@react-google-maps/api";
 
 
 const Markers = (props) =>{
+
+    
+
     return(
     <div>
         {props.devicelist.map(device => <MarkerF key={device.chargeDeviceId} 
