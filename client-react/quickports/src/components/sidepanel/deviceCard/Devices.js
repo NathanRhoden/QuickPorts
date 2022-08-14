@@ -10,6 +10,13 @@ const Devices = (props) => {
           streetName={device.location.address.streetName}
           voltageInformation={device.connector.chargeMethod}
           connectorType={device.connector.connectorType}
+
+          ratedOutputKW={device.connector.ratedOutputKW}
+          ratedOutputVoltage={device.connector.ratedOutputVoltage}
+          ratedOutputCurrent={device.connector.ratedOutputCurrent}
+          chargeMethod ={device.connector.chargeMethod}
+          
+
         />
       ))}
     </div>

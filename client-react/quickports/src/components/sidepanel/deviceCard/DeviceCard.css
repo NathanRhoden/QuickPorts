@@ -1,16 +1,14 @@
 .card-body {
   width: 20vw;
-  height: 200px;
-  
+  max-height: 500px;
+
   margin: 10px;
 
-  border-radius: 10px;
+  border-radius: 20px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  
- 
 }
 
 .card-body-color {
@@ -22,3 +20,12 @@
   border-radius: 10px;
   background-color: aqua;
 }
+
+.card-body-chargedetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
