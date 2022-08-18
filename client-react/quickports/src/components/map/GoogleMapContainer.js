@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect, useCallBack } from "react";
+/* eslint-disable no-undef */
+import { useState, useMemo, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -6,25 +7,32 @@ import {
 } from "@react-google-maps/api";
 import "../map/GoogleMapContainer.css";
 import Markers from "./marker/Markers";
+import Button from "@mui/material/Button";
 
 export default function GoogleMapContainer(props) {
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  const [directionsResponse, setDirectionsResponse] = useState(null);
-  const [hasClicked, setHasClicked] = useState(false);
-
   const ClickHandler = () => {
-    setHasClicked(true);
+    calculateRoute();
   };
+
+  function clearRoute() {
+    setDirectionsResponse(null);
+  }
 
   async function calculateRoute() {
     const directionsService = new google.maps.DirectionsService();
 
     const result = await directionsService.route({
-      origin: new google.maps.LatLng(51.385979, -0.092806),
+      origin: new google.maps.LatLng(
+        props.userSearchedCoordinate.lat,
+        props.userSearchedCoordinate.lng
+      ),
       destination: new google.maps.LatLng(51.411173, -0.055369),
       travelMode: google.maps.TravelMode.DRIVING,
     });
@@ -33,13 +41,22 @@ export default function GoogleMapContainer(props) {
     setDirectionsResponse(result);
   }
 
+  const getUserLocation = () => {
+    async function success(pos) {
+      const crd = await pos.coords;
+      setCoordinates({ lat: crd.latitude, lng: crd.longitude });
+    }
+    //TODO: This must be able to catch errors // user did not  give permission to access this location
+    navigator.geolocation.getCurrentPosition(success);
+  };
+
   if (!isLoaded) return <div>Loading...!</div>;
   return <InitMap />;
 
   function InitMap() {
     const [coordinates, setCoordinates] = useState({
-      lat: 51.411173,
-      lng: -0.055369,
+      lat: 51.385979,
+      lng: -0.092806,
     });
 
     const getUserLocation = () => {
@@ -52,24 +69,20 @@ export default function GoogleMapContainer(props) {
     };
 
     useEffect(() => {
-      if(hasClicked){
-        calculateRoute();
-      }
-      setHasClicked(false);
-    }, [hasClicked])
-  
-
-    useEffect(() => {
       if (!props.userHasSearched) {
         getUserLocation();
-      } else
+        console.log("YOUR LOCATION");
+      }
+      if (props.userHasSearched) {
         setCoordinates({
           lat: props.userSearchedCoordinate.lat,
           lng: props.userSearchedCoordinate.lng,
         });
+
+        console.log("COORDINATES SET");
+      }
     }, []);
 
-  
     //TEST-MARKER PROPS SHOULD BE TAKEN FROM ANOTHER STATE
     const centerMarker = useMemo(
       () => ({ lat: coordinates.lat, lng: coordinates.lng }),
@@ -82,9 +95,22 @@ export default function GoogleMapContainer(props) {
           zoom={14}
           center={{ lat: coordinates.lat, lng: coordinates.lng }}
           mapContainerClassName="map-container"
-          onClick={ClickHandler}
         >
-          {directionsResponse && <DirectionsRenderer  directions={directionsResponse}/>}
+          <Button
+            sx={{ margin: "20px", width: 200, height: 50 }}
+            variant="contained"
+            onClick={ClickHandler}
+          >Get Directions</Button>
+          <Button
+            sx={{ margin: "20px", width: 200, height: 50 }}
+            variant="contained"
+            onClick={clearRoute}
+          >
+            Clear!
+          </Button>
+          {directionsResponse && (
+            <DirectionsRenderer directions={directionsResponse} />
+          )}
           {props.devices.length > 0 && (
             <Markers devicelist={props.devices[0]} />
           )}

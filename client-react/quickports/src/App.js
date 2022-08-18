@@ -25,7 +25,9 @@ function App() {
         <GoogleMapContainer 
           devices={returnedChargeDevices} 
           userHasSearched={userHasSearched}
-          userSearchedCoordinate={userSearchedCoordinate}/>
+          userSearchedCoordinate={userSearchedCoordinate}
+          setHasSearched={setHasSearched}
+          />
       </div>
       <div>
         <SidePanel
