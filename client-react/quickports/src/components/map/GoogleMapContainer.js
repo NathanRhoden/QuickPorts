@@ -10,33 +10,30 @@ import Markers from "./marker/Markers";
 import Button from "@mui/material/Button";
 
 export default function GoogleMapContainer(props) {
-  const [directionsResponse, setDirectionsResponse] = useState(null);
-
-  //Persisted reference to the selected device set by the MarkerF component
-  const selectedMarker = useRef(null);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  const ClickHandler = () => {
-    calculateRoute();
-  };
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+
+  //Persisted reference to the selected device set by the MarkerF component
+  const selectedMarker = useRef(null);
 
   function clearRoute() {
     setDirectionsResponse(null);
   }
 
   async function calculateRoute() {
-    console.log(selectedMarker.current.location.latitude);
-
     const directionsService = new google.maps.DirectionsService();
 
     const result = await directionsService.route({
+      //userSearchedCoordinate
       origin: new google.maps.LatLng(
         props.userSearchedCoordinate.lat,
         props.userSearchedCoordinate.lng
       ),
+      //Coordinate of selectedDevice
       destination: new google.maps.LatLng(
         selectedMarker.current.location.latitude,
         selectedMarker.current.location.longitude
@@ -88,7 +85,7 @@ export default function GoogleMapContainer(props) {
           <Button
             sx={{ margin: "20px", width: 200, height: 50 }}
             variant="contained"
-            onClick={ClickHandler}
+            onClick={() => calculateRoute()}
           >
             Get Directions
           </Button>
