@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
+  useGoogleMap,
   DirectionsRenderer,
   InfoWindow,
 } from "@react-google-maps/api";
@@ -13,8 +14,7 @@ import Button from "@mui/material/Button";
 export default function GoogleMapContainer(props) {
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [hasClicked, setHasClicked] = useState(false);
-  const [selectedMarker , setSelectedMarker] = useState(null);
-
+  
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
@@ -40,7 +40,6 @@ export default function GoogleMapContainer(props) {
       travelMode: google.maps.TravelMode.DRIVING,
     });
     console.log(result);
-
     setDirectionsResponse(result);
   }
 
@@ -61,6 +60,7 @@ export default function GoogleMapContainer(props) {
       lat: 51.385979,
       lng: -0.092806,
     });
+
 
     const getUserLocation = () => {
       async function success(pos) {
@@ -86,19 +86,15 @@ export default function GoogleMapContainer(props) {
       }
     }, []);
 
-   
     return (
       <div>
         <GoogleMap
+          id="QuickPorts Map"
           zoom={14}
           center={{ lat: coordinates.lat, lng: coordinates.lng }}
           mapContainerClassName="map-container"
-        >
-          {selectedMarker && (
-              <InfoWindow position=
-              { coordinates}><div>Charge Device details</div>
-              </InfoWindow>)} 
           
+        >
           <Button
             sx={{ margin: "20px", width: 200, height: 50 }}
             variant="contained"
@@ -113,14 +109,12 @@ export default function GoogleMapContainer(props) {
           >
             Clear!
           </Button>
-          {directionsResponse && (<DirectionsRenderer directions={directionsResponse} />)}
+          {directionsResponse && (
+            <DirectionsRenderer directions={directionsResponse} />
+          )}
+        
           {props.devices.length > 0 && (
-            <Markers
-              devicelist={props.devices[0]}
-              setSelectedMarker={setSelectedMarker}
-              
-            >
-            </Markers>
+            <Markers devicelist={props.devices[0]}></Markers>
           )}
         </GoogleMap>
       </div>
