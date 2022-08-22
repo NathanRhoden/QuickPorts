@@ -18,7 +18,9 @@ const SearchBar = (props) => {
   const submitHandler = async (e) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
-    const result = await inputConversion(input);
+
+    //(/\s+/g, '') expression to remove white spaces from post code
+    const result = await inputConversion(input.replace(/\s+/g, ''));
     props.setCoordinates({lat : result.latitude, lng : result.longitude});
     props.setHasSearched(true);
     fetch(
