@@ -15,8 +15,7 @@ const Markers = (props) => {
     color: `black`,
 
     background: `white`,
-    border: `1px solid #ccc`,
-    padding: 15,
+    padding: 10,
   };
 
   return (
@@ -36,13 +35,16 @@ const Markers = (props) => {
       {selectedMarker && (
         <InfoWindow
           position={{
-            lat: parseFloat(selectedMarker.location.latitude),
-            lng: parseFloat(selectedMarker.location.longitude),
+            lat: parseFloat(selectedMarker.location.latitude + 0.00020),
+            lng: parseFloat(selectedMarker.location.longitude + + 0.00020),
           }}
           onCloseClick={() => setSelectedMarker(null)}
         >
           <div style={divStyle}>
             <h3>{selectedMarker.chargeDeviceId}</h3>
+            <h4>Building Number : {selectedMarker.location.address.buildingNumber}</h4>
+            <h4>Street Name : {selectedMarker.location.address.streetName}</h4>
+            <h4>Postcode : {selectedMarker.location.address.postCode}</h4>
           </div>
         </InfoWindow>
       )}
