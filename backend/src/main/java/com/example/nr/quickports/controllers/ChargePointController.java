@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(
-        path = "/api/v1/points"
-)
+@RequestMapping(path = "/api/v1/points")
 public class ChargePointController {
 
     private final ChargePointService chargePointService;
@@ -25,7 +23,7 @@ public class ChargePointController {
         this.chargePointService = chargePointService;
     }
 
-    //RETURNS A LIST OF ALL CHARGE DEVICES
+    // RETURNS A LIST OF ALL CHARGE DEVICES
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/all")
     public ResponseEntity<List<ChargeDeviceDTO>> getAllChargePoints() {
@@ -40,7 +38,7 @@ public class ChargePointController {
 
     }
 
-    //SAVES DEVICE TO DATABASE
+    // SAVES DEVICE TO DATABASE
     @PostMapping
     public ResponseEntity<ChargeDevice> saveChargeDevice(@RequestBody ChargeDeviceDTO chargeDeviceDTO) {
 
@@ -52,7 +50,7 @@ public class ChargePointController {
 
     }
 
-    //SEARCHES FOR DEVICES BY STRING ID
+    // SEARCHES FOR DEVICES BY STRING ID
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/device")
     @ResponseBody
@@ -63,8 +61,7 @@ public class ChargePointController {
         return new ResponseEntity<>(chargeDevice, HttpStatus.OK);
     }
 
-
-    //SEARCHES FOR DEVICES BY LONG ID
+    // SEARCHES FOR DEVICES BY LONG ID
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "{id}")
     @ResponseBody
@@ -76,23 +73,20 @@ public class ChargePointController {
 
     }
 
-    //TEST DISTANCE
+    // TEST DISTANCE
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/distance")
     @ResponseBody
     public ResponseEntity<List<ChargeDevice>> getDevicebyDistance(@RequestParam double d,
-                                                                  @RequestParam double latitude,
-                                                                  @RequestParam double longitude) {
+            @RequestParam double latitude,
+            @RequestParam double longitude) {
 
         LatLng userSearchedCoordinate = new LatLng(latitude, longitude);
 
-        List<ChargeDevice> chargeDeviceList = chargePointService.findChargeDevicesByDistance( userSearchedCoordinate ,  d);
+        List<ChargeDevice> chargeDeviceList = chargePointService.findChargeDevicesByDistance(userSearchedCoordinate, d);
 
-        return new ResponseEntity<>(chargeDeviceList , HttpStatus.OK);
+        return new ResponseEntity<>(chargeDeviceList, HttpStatus.OK);
 
     }
-
-
-
 
 }
