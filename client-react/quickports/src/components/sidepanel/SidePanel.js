@@ -3,8 +3,9 @@ import "../sidepanel/searchbar/SearchBar.css";
 import Devices from "./deviceCard/Devices";
 import SearchBar from "./searchbar/Searchbar";
 
+
 const SidePanel = (props) => {
-  const mockDevices = [];
+  const emptyDeviceList = [];
 
   return (
     <div className="panelBody">
@@ -17,14 +18,15 @@ const SidePanel = (props) => {
       </div>
       <div className="card-container">
         <section>
-          {props.devices.length > 0 && (
+        {props.devices.length > 0 && (
             <Devices devicelist={props.devices[0]} />
           )}
-          {props.devices.length === 0 && <Devices devicelist={mockDevices} />}
+          {props.devices.length === 0 && <Devices devicelist={emptyDeviceList} />}
+          {props.isCleared && <div id='panel' />}
         </section>
       </div>
     </div>
   );
-};
+}; 
 
 export default SidePanel;

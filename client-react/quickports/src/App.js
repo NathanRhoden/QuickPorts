@@ -11,11 +11,15 @@ function App() {
   const [userSearchedCoordinate , setCoordinates] = useState({lat : 0, lng : 0});
 
   const [userHasSearched , setHasSearched] = useState(false);
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+
+  const [cleared , setCleared] = useState(false);
 
   const body = document.body.style;
   body.overflow = "hidden";
 
   console.log(userSearchedCoordinate);
+  console.log(returnedChargeDevices);
   return (
     <div className="App">
       <div>
@@ -23,10 +27,14 @@ function App() {
       </div>
       <div className="[map-container]">
         <GoogleMapContainer 
+          setDevices={setReturnedChargeDevices}
           devices={returnedChargeDevices} 
           userHasSearched={userHasSearched}
           userSearchedCoordinate={userSearchedCoordinate}
           setHasSearched={setHasSearched}
+          directionsResponse={directionsResponse}
+          setDirectionsResponse={setDirectionsResponse}
+          setCleared={setCleared}
           />
       </div>
       <div>
@@ -35,6 +43,9 @@ function App() {
           setDevices={setReturnedChargeDevices}
           setCoordinates={setCoordinates}
           setHasSearched={setHasSearched}
+          directionsResponse={directionsResponse}
+          setDirectionsResponse={setDirectionsResponse}
+          isCleared={cleared}
         />
       </div>
     </div>
