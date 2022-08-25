@@ -83,7 +83,7 @@ export default function GoogleMapContainer(props) {
     }, []);
 
     return (
-      <div>
+      <div className="container">
         <GoogleMap
           id="QuickPorts Map"
           zoom={13}
@@ -107,10 +107,7 @@ export default function GoogleMapContainer(props) {
         
           {props.directionsResponse && (
             <DirectionsRenderer directions={props.directionsResponse} panel={document.getElementById('panel')} />
-          )}  
-          <div id='panel'  style ={{position: "absolute", width : "100vw", height : '25vh', backgroundColor :  'white', 
-          top:'75%' , display:'row', alignItems: 'left', justifyContent: 'left', flexDirection: 'left'}}>
-            </div>
+          )} 
           {props.devices.length > 0 && (
             <Markers
               devicelist={props.devices[0]}
@@ -118,6 +115,11 @@ export default function GoogleMapContainer(props) {
             ></Markers>
           )}
         </GoogleMap>
+        <div className="directions-container"> 
+          <div id='panel'  style ={{position: "relative", backgroundColor :  'white', 
+             display:'row', alignItems: 'left', justifyContent: 'left', flexDirection: 'left' , border : 'solid 3px black'}}>
+          </div>
+        </div>
       </div>
     );
   }
