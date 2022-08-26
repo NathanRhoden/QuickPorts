@@ -14,18 +14,22 @@ export default function GoogleMapContainer(props) {
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  
+  const [showMarkers , setShowMarkers] = useState(true);
 
   //Persisted reference to the selected device set by the MarkerF component
   const selectedMarker = useRef(null);
 
   function clearRoute() {
+    setShowMarkers(true);
     props.setDirectionsResponse(null);
     props.setCleared(true);
+    
 
+    
   }
 
   async function calculateRoute() {
+    
     //protects against mutiple reloads 
     if(props.directionsResponse === null){
       const directionsService = new google.maps.DirectionsService();
@@ -43,9 +47,12 @@ export default function GoogleMapContainer(props) {
         travelMode: google.maps.TravelMode.DRIVING,
       });
 
+      setShowMarkers(false);
       console.log(result);
       props.setCleared(false);
       props.setDirectionsResponse(result);
+      
+    
     }
   
    
@@ -108,7 +115,7 @@ export default function GoogleMapContainer(props) {
           {props.directionsResponse && (
             <DirectionsRenderer directions={props.directionsResponse} panel={document.getElementById('panel')} />
           )} 
-          {props.devices.length > 0 && (
+          {props.devices.length > 0 && showMarkers && (
             <Markers
               devicelist={props.devices[0]}
               setMarker={selectedMarker}
