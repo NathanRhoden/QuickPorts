@@ -115,11 +115,7 @@ export default function GoogleMapContainer(props) {
             ></Markers>
           )}
         </GoogleMap>
-        <div className="directions-container"> 
-          <div id='panel'  style ={{position: "relative", backgroundColor :  'white', 
-             display:'row', alignItems: 'left', justifyContent: 'left', flexDirection: 'left' , border : 'solid 3px black'}}>
-          </div>
-        </div>
+        <div id="panel" className="lower-window"></div>
       </div>
     );
   }
