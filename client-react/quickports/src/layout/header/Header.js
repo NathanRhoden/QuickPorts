@@ -8,10 +8,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-title">
+        <h1>QuickPorts</h1>
         <div className="header-title-icon">
           <img src="thunderbolt.png" alt="thunderbolt"></img>
         </div>
-        <h1>QuickPorts</h1>
       </div>
       <Fragment>
         <Box sx={{ flexGrow: 1 }}>
