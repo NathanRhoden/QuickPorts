@@ -1,5 +1,10 @@
 import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
@@ -9,6 +14,9 @@ import { useState } from "react";
 const SearchBar = (props) => {
   //State of User Input
   const [input, setInput] = useState("");
+
+  //state for distance from origin selected by the user.
+  const [distance, setDistance] = useState(0);
 
   const inputConversion = async (postcode) => {
     let jsonData = await convertPostCodeToCoordinate(postcode);
@@ -20,20 +28,30 @@ const SearchBar = (props) => {
     e.preventDefault();
 
     //(/\s+/g, '') expression to remove white spaces from post code
-    const result = await inputConversion(input.replace(/\s+/g, ''));
-    props.setCoordinates({lat : result.latitude, lng : result.longitude});
+    //distance set to 10 miles
+
+    const result = await inputConversion(input.replace(/\s+/g, ""));
+    props.setCoordinates({ lat: result.latitude, lng: result.longitude });
     props.setHasSearched(true);
     fetch(
-      `http://localhost:8080/api/v1/points/distance?d=10&latitude=${result.latitude}&longitude=${result.longitude}`
+      `http://localhost:8080/api/v1/points/distance?d=${distance}&latitude=${result.latitude}&longitude=${result.longitude}`
     )
       .then((response) => response.json())
       .then((data) => props.setDevices([data]));
   };
 
+  //change handlers for the distanceInMiles
+  const handleChange = (e) => {
+    setDistance(e.target.value);
+  };
+
   return (
-    <div>
-      <SearchIcon />
-      <div>
+    <div className="SearchbarBody">
+      <div className="icon">
+        <SearchIcon />
+      </div>
+      <div className="bar">
+        <Box>
         <form onSubmit={submitHandler}>
           <Input
             type="text"
@@ -43,6 +61,27 @@ const SearchBar = (props) => {
             onChange={(e) => setInput(e.target.value)}
           />
         </form>
+        </Box>
+      </div>
+      <div className="distance-select-box">
+        <InputLabel id="label"></InputLabel>
+        <Box>
+          <FormControl fullWidth>
+            <InputLabel id="label">Distance</InputLabel>
+            <Select
+              labelId="label"
+              id="select"
+              value={distance}
+              label="Distance"
+              onChange={handleChange}
+            >
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </div>
     </div>
   );

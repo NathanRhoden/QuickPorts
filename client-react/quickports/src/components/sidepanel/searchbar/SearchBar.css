@@ -1,11 +1,40 @@
-.SearchBarBody{
-    position: relative;
+.SearchBarBody {
+  position: relative;
 
-    top : 3vh;
-    width : 90%;
-    margin-bottom: 70px;;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-    padding: 10px;
-    border :solid black 1px ;  
+  top: 3vh;
+  height: 8%;
+  width: 90%;
+
+  margin-bottom: 70px;
+
+  padding: 10px;
+  border: solid black 1px;
 }
 
+.bar {
+  position: relative;
+  right: 50%;
+  width: 80%;
+}
+.icon {
+  position: relative;
+
+  top: 10%;
+  right:10%
+
+}
+
+.distance-select-box {
+  position: absolute;
+
+  height: 5vh;
+  width: 10vw;
+
+  left: 55%;
+  bottom: 10%;
+}
