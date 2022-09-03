@@ -10,6 +10,7 @@ import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConver
 
 import "./SearchBar.css";
 import { useState } from "react";
+import { TextField } from "@mui/material";
 
 const SearchBar = (props) => {
   //State of User Input
@@ -52,19 +53,18 @@ const SearchBar = (props) => {
       </div>
       <div className="bar">
         <Box>
-        <form onSubmit={submitHandler}>
-          <Input
-            type="text"
-            placeholder="Search"
-            value={input}
-            fullWidth={true}
-            onChange={(e) => setInput(e.target.value)}
-          />
-        </form>
+          <FormControl fullWidth>
+            <form onSubmit={submitHandler}>
+              <TextField  label="Postcode" id="outlined-basic" variant="outlined"  type="text"
+                value={input}
+                fullWidth={true}
+                onChange={(e) => setInput(e.target.value)}/>
+              
+            </form>
+          </FormControl>
         </Box>
       </div>
       <div className="distance-select-box">
-        <InputLabel id="label"></InputLabel>
         <Box>
           <FormControl fullWidth>
             <InputLabel id="label">Distance</InputLabel>
