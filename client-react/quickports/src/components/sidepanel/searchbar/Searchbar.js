@@ -16,7 +16,7 @@ const SearchBar = (props) => {
   const [input, setInput] = useState("");
 
   //state for distance from origin selected by the user.
-  const [distance, setDistance] = useState(0);
+  const [distance, setDistance] = useState(10);
 
   const inputConversion = async (postcode) => {
     let jsonData = await convertPostCodeToCoordinate(postcode);
