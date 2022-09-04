@@ -10,38 +10,44 @@ import Markers from "./marker/Markers";
 import Button from "@mui/material/Button";
 
 export default function GoogleMapContainer(props) {
-
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  const [directionsResponse, setDirectionsResponse] = useState(null);
+  
 
   //Persisted reference to the selected device set by the MarkerF component
   const selectedMarker = useRef(null);
 
   function clearRoute() {
-    setDirectionsResponse(null);
+    props.setShowMarkers(true);
+    props.setDirectionsResponse(null);
+    props.setCleared(true);
   }
 
   async function calculateRoute() {
-    const directionsService = new google.maps.DirectionsService();
+    //protects against mutiple reloads
+    if (props.directionsResponse === null) {
+      const directionsService = new google.maps.DirectionsService();
+      const result = await directionsService.route({
+        //userSearchedCoordinate
+        origin: new google.maps.LatLng(
+          props.userSearchedCoordinate.lat,
+          props.userSearchedCoordinate.lng
+        ),
+        //Coordinate of selectedDevice
+        destination: new google.maps.LatLng(
+          selectedMarker.current.location.latitude,
+          selectedMarker.current.location.longitude
+        ),
+        travelMode: google.maps.TravelMode.DRIVING,
+      });
 
-    const result = await directionsService.route({
-      //userSearchedCoordinate
-      origin: new google.maps.LatLng(
-        props.userSearchedCoordinate.lat,
-        props.userSearchedCoordinate.lng
-      ),
-      //Coordinate of selectedDevice
-      destination: new google.maps.LatLng(
-        selectedMarker.current.location.latitude,
-        selectedMarker.current.location.longitude
-      ),
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
-    console.log(result);
-    setDirectionsResponse(result);
+      props.setShowMarkers(false);
+      console.log(result);
+      props.setCleared(false);
+      props.setDirectionsResponse(result);
+    }
   }
 
   if (!isLoaded) return <div>Loading...!</div>;
@@ -75,7 +81,7 @@ export default function GoogleMapContainer(props) {
     }, []);
 
     return (
-      <div>
+      <div className="container">
         <GoogleMap
           id="QuickPorts Map"
           zoom={13}
@@ -96,17 +102,21 @@ export default function GoogleMapContainer(props) {
           >
             Clear
           </Button>
-          {directionsResponse && (
-            <DirectionsRenderer directions={directionsResponse} />
-          )}
 
-          {props.devices.length > 0 && (
+          {props.directionsResponse && (
+            <DirectionsRenderer
+              directions={props.directionsResponse}
+              panel={document.getElementById("panel")}
+            />
+          )}
+          {props.devices.length > 0 && props.showMarkers && (
             <Markers
               devicelist={props.devices[0]}
               setMarker={selectedMarker}
             ></Markers>
           )}
         </GoogleMap>
+        <div id="panel" className="lower-window"></div>
       </div>
     );
   }

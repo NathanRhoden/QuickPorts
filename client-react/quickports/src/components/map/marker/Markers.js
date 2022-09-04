@@ -2,6 +2,7 @@ import { InfoWindow, MarkerF } from "@react-google-maps/api";
 import { useState } from "react";
 
 const Markers = (props) => {
+  //state of the marker that the user has clicked
   const [selectedMarker, setSelectedMarker] = useState();
 
   const divStyle = {
