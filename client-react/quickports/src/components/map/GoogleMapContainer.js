@@ -14,24 +14,20 @@ export default function GoogleMapContainer(props) {
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  const [showMarkers , setShowMarkers] = useState(true);
+  
 
   //Persisted reference to the selected device set by the MarkerF component
   const selectedMarker = useRef(null);
 
   function clearRoute() {
-    setShowMarkers(true);
+    props.setShowMarkers(true);
     props.setDirectionsResponse(null);
     props.setCleared(true);
-    
-
-    
   }
 
   async function calculateRoute() {
-    
-    //protects against mutiple reloads 
-    if(props.directionsResponse === null){
+    //protects against mutiple reloads
+    if (props.directionsResponse === null) {
       const directionsService = new google.maps.DirectionsService();
       const result = await directionsService.route({
         //userSearchedCoordinate
@@ -47,17 +43,12 @@ export default function GoogleMapContainer(props) {
         travelMode: google.maps.TravelMode.DRIVING,
       });
 
-      setShowMarkers(false);
+      props.setShowMarkers(false);
       console.log(result);
       props.setCleared(false);
       props.setDirectionsResponse(result);
-      
-    
     }
-  
-   
   }
-
 
   if (!isLoaded) return <div>Loading...!</div>;
   return <InitMap />;
@@ -111,11 +102,14 @@ export default function GoogleMapContainer(props) {
           >
             Clear
           </Button>
-        
+
           {props.directionsResponse && (
-            <DirectionsRenderer directions={props.directionsResponse} panel={document.getElementById('panel')} />
-          )} 
-          {props.devices.length > 0 && showMarkers && (
+            <DirectionsRenderer
+              directions={props.directionsResponse}
+              panel={document.getElementById("panel")}
+            />
+          )}
+          {props.devices.length > 0 && props.showMarkers && (
             <Markers
               devicelist={props.devices[0]}
               setMarker={selectedMarker}

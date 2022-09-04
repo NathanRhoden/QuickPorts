@@ -1,11 +1,9 @@
-import Input from "@mui/material/Input";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
 import convertPostCodeToCoordinate from "../../../locationservice/PostCodeConversion";
 
 import "./SearchBar.css";
@@ -28,9 +26,14 @@ const SearchBar = (props) => {
     //Function prevents the page from reloading on submit
     e.preventDefault();
 
+    if(props.directionsResponse != null){
+      props.setShowMarkers(true);
+      props.setDirectionsResponse(null);
+      props.setCleared(true);
+    }
+
     //(/\s+/g, '') expression to remove white spaces from post code
     //distance set to 10 miles
-
     const result = await inputConversion(input.replace(/\s+/g, ""));
     props.setCoordinates({ lat: result.latitude, lng: result.longitude });
     props.setHasSearched(true);

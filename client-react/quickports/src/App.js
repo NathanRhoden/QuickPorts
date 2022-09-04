@@ -8,12 +8,14 @@ import { useState } from "react";
 
 function App() {
   const [returnedChargeDevices, setReturnedChargeDevices] = useState([]);
-  const [userSearchedCoordinate , setCoordinates] = useState({lat : 0, lng : 0});
+  const [userSearchedCoordinate, setCoordinates] = useState({ lat: 0, lng: 0 });
 
-  const [userHasSearched , setHasSearched] = useState(false);
+  const [userHasSearched, setHasSearched] = useState(false);
   const [directionsResponse, setDirectionsResponse] = useState(null);
 
-  const [cleared , setCleared] = useState(false);
+  const [cleared, setCleared] = useState(false);
+
+  const [showMarkers, setShowMarkers] = useState(true);
 
   const body = document.body.style;
   body.overflow = "hidden";
@@ -26,16 +28,18 @@ function App() {
         <Header />
       </div>
       <div className="[map-container]">
-        <GoogleMapContainer 
+        <GoogleMapContainer
           setDevices={setReturnedChargeDevices}
-          devices={returnedChargeDevices} 
+          devices={returnedChargeDevices}
           userHasSearched={userHasSearched}
           userSearchedCoordinate={userSearchedCoordinate}
           setHasSearched={setHasSearched}
           directionsResponse={directionsResponse}
           setDirectionsResponse={setDirectionsResponse}
           setCleared={setCleared}
-          />
+          showMarkers={showMarkers}
+          setShowMarkers={setShowMarkers}
+        />
       </div>
       <div>
         <SidePanel
@@ -45,7 +49,10 @@ function App() {
           setHasSearched={setHasSearched}
           directionsResponse={directionsResponse}
           setDirectionsResponse={setDirectionsResponse}
+          setCleared={setCleared}
           isCleared={cleared}
+          showMarkers={showMarkers}
+          setShowMarkers={setShowMarkers}
         />
       </div>
     </div>

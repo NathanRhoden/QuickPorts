@@ -15,6 +15,10 @@ const SidePanel = (props) => {
           setHasSearched={props.setHasSearched}
           setDirectionsResponse={props.setDirectionsResponse}
           directionsResponse={props.directionsResponse}
+          distance={props.distance}
+          setDistance={props.setDistance}
+          setCleared={props.setCleared}
+          setShowMarkers={props.setShowMarkers}
         />
       </div>
       <div className="card-container">
