@@ -29,7 +29,6 @@ function App() {
       </div>
       <div className="[map-container]">
         <GoogleMapContainer
-          setDevices={setReturnedChargeDevices}
           devices={returnedChargeDevices}
           userHasSearched={userHasSearched}
           userSearchedCoordinate={userSearchedCoordinate}

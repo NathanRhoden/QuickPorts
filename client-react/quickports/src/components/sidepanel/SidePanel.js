@@ -10,6 +10,7 @@ const SidePanel = (props) => {
     <div className="panelBody">
       <div className="SearchBarBody">
         <SearchBar
+          devices={props.devices}
           setDevices={props.setDevices}
           setCoordinates={props.setCoordinates}
           setHasSearched={props.setHasSearched}

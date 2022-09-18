@@ -14,10 +14,10 @@ export default function GoogleMapContainer(props) {
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
   });
 
-  
-
   //Persisted reference to the selected device set by the MarkerF component
   const selectedMarker = useRef(null);
+  const testLocation = useRef({ lat: 51.385979, lng: -0.092806 });
+  console.log(testLocation.current);
 
   function clearRoute() {
     props.setShowMarkers(true);
@@ -54,6 +54,7 @@ export default function GoogleMapContainer(props) {
   return <InitMap />;
 
   function InitMap() {
+    //STATE OF LOCATION DISPLAYED ON THE MAP
     const [coordinates, setCoordinates] = useState({
       lat: 51.385979,
       lng: -0.092806,
@@ -84,7 +85,7 @@ export default function GoogleMapContainer(props) {
       <div className="container">
         <GoogleMap
           id="QuickPorts Map"
-          zoom={13}
+          zoom={11}
           center={{ lat: coordinates.lat, lng: coordinates.lng }}
           mapContainerClassName="map-container"
         >
