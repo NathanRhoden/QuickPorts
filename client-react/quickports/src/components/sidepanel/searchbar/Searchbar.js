@@ -25,7 +25,7 @@ const SearchBar = (props) => {
 
   const fetchData = (result) => {
     fetch(
-      `http://ec2-18-130-197-76.eu-west-2.compute.amazonaws.com:8000/api/v1/points/distance?d=${distance}&latitude=${result.latitude}&longitude=${result.longitude}`
+      `${process.env.REACT_APP_ENDPOINT}${distance}&latitude=${result.latitude}&longitude=${result.longitude}`
     )
       .then((response) => response.json())
       .then((data) => props.setDevices([data]));
