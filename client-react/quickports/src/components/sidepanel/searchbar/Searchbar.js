@@ -17,7 +17,6 @@ const SearchBar = (props) => {
   //state for distance from origin selected by the user.
   const [distance, setDistance] = useState(10);
 
- 
 
   const inputConversion = async (postcode) => {
     let jsonData = await convertPostCodeToCoordinate(postcode);
@@ -26,7 +25,7 @@ const SearchBar = (props) => {
 
   const fetchData = (result) => {
     fetch(
-      `http://localhost:8080/api/v1/points/distance?d=${distance}&latitude=${result.latitude}&longitude=${result.longitude}`
+      `http://ec2-18-130-197-76.eu-west-2.compute.amazonaws.com:8000/api/v1/points/distance?d=${distance}&latitude=${result.latitude}&longitude=${result.longitude}`
     )
       .then((response) => response.json())
       .then((data) => props.setDevices([data]));
