@@ -16,9 +16,7 @@ export default function GoogleMapContainer(props) {
 
   //Persisted reference to the selected device set by the MarkerF component
   const selectedMarker = useRef(null);
-  const testLocation = useRef({ lat: 51.385979, lng: -0.092806 });
-  console.log(testLocation.current);
-
+  
   function clearRoute() {
     props.setShowMarkers(true);
     props.setDirectionsResponse(null);

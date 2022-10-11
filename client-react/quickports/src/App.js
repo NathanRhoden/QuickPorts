@@ -20,8 +20,6 @@ function App() {
   const body = document.body.style;
   body.overflow = "hidden";
 
-  console.log(userSearchedCoordinate);
-  console.log(returnedChargeDevices);
   return (
     <div className="App">
       <div>
